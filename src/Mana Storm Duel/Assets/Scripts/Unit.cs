@@ -2,25 +2,32 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class Unit : NetworkBehaviour {
+public class Unit : MonoBehaviour {
 
+    bool isDead = false;
     [SerializeField]
-    int MaxHealth = 100;
+    int maxHealth = 100;
+    int hp;
     [SerializeField]
-    int Hp = 100;
-
-    [SerializeField]
-    int MaxSpeed = 100;
-    [SerializeField]
-    int Speed = 100;
+    int maxSpeed = 100;
+    int speed;
 
 	// Use this for initialization
 	void Start () {
-	    
+        hp = maxHealth;
+        speed = maxSpeed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+        
 	}
+    
+    void FixedUpdate ()
+    {
+        if (hp <= 0)
+        {
+            isDead = true;
+        }
+    }
 }
