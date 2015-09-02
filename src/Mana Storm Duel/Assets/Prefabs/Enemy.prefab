@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 476996}
   - 33: {fileID: 3335142}
-  - 65: {fileID: 6585168}
   - 23: {fileID: 2373626}
   m_Layer: 8
   m_Name: Cube
@@ -27,8 +26,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 446878}
   - 114: {fileID: 11441458}
-  - 54: {fileID: 5487702}
   - 114: {fileID: 11437796}
+  - 135: {fileID: 13547856}
+  - 54: {fileID: 5480984}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -92,7 +92,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107746}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &5487702
+--- !u!54 &5480984
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,23 +102,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6585168
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 107746}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11437796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,8 +130,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f2f55e580df7549b6a1142ea1eb48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 13547856}
+  rigidbody: {fileID: 5480984}
   maxHealth: 100
+  _hp: 0
   maxSpeed: 100
+  _speed: 0
+--- !u!135 &13547856
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: .5, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

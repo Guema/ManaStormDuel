@@ -1,16 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+using System;
 
-[RequireComponent(typeof(SphereCollider))]
-public class Weapon : MonoBehaviour {
+public interface IWeaponMessages : IEventSystemHandler
+{
+    void OnUnitEnter(Unit unit);
+    void OnUnitExit(Unit unit);
+}
+
+
+[RequireComponent(typeof(Collider))]
+public class Weapon : MonoBehaviour, IWeaponMessages {
 
     [SerializeField]
     SphereCollider sphere;
 
     [SerializeField]
+    Vector3 cannon = new Vector3(0.0f, 0.0f, 0.0f);
+
+    [SerializeField]
     GameObject projectile;
+    
+    [SerializeField]
+    List<Effect> effects = new List<Effect>();
+
     [SerializeField]
     int range = 10;
 
@@ -23,11 +39,25 @@ public class Weapon : MonoBehaviour {
     float attackPerSecond;
     float last_attack = 0.0f;
 
-    List<Collider> listcoll = new List<Collider>();
+    List<Unit> listTargets = new List<Unit>();
 
-	// Use this for initialization
-	void Start () {
-        damage = maxDamage;
+    public int Damage
+    {
+        get
+        {
+            return damage;
+        }
+
+        set
+        {
+            damage = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        Damage = maxDamage;
         attackPerSecond = maxAttackPerSecond;
         sphere.radius = range;
         sphere.isTrigger = true;
@@ -39,33 +69,53 @@ public class Weapon : MonoBehaviour {
     {
         sphere.radius = range;
         attackPerSecond = maxAttackPerSecond;
-        if (listcoll.Count > 0)
+        if (HasTarget() && CanAttack())
         {
-            if (Time.time - last_attack >= attackPerSecond)
-            {
-                last_attack = Time.time;
-
-                var temp = GameObject.Instantiate<GameObject>(projectile);
-                temp.transform.position = this.transform.position;
-                temp.GetComponent<Goto>().dest = listcoll[0].transform;
-            }
-            
+            Attack(); 
         }
+    }
+
+    void Attack()
+    {
+        last_attack = Time.time;
+        var temp = Instantiate(projectile);
+        temp.transform.position = transform.position + cannon;
+        ExecuteEvents.Execute<IProjectileMessage>(temp, null, (x, y) => x.SetTarget(listTargets[0], effects.ToArray()));
+    }
+
+    public bool HasTarget()
+    {
+        if (listTargets.Count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public bool CanAttack()
+    {
+        if(Time.time - last_attack >= attackPerSecond)
+            return true;
+        else
+            return false;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Ennemi repéré !");
-        listcoll.Add(col);
-    }
-    
-    void OnTriggerStay(Collider col)
-    {
-
+        ExecuteEvents.Execute<IUnitMessage>(col.gameObject, null, (x, y) => x.OnWeaponTarget(this));
     }
 
     void OnTriggerExit(Collider col)
     {
-        listcoll.Remove(col);
+        ExecuteEvents.Execute<IUnitMessage>(col.gameObject, null, (x, y) => x.OnWeaponUnTarget(this));
+    }
+
+    void IWeaponMessages.OnUnitEnter(Unit unit)
+    {
+        listTargets.Add(unit);
+    }
+
+    void IWeaponMessages.OnUnitExit(Unit unit)
+    {
+        listTargets.Remove(unit);
     }
 }

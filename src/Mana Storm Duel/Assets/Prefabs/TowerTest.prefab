@@ -25,7 +25,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 449148}
-  - 114: {fileID: 11414210}
   - 114: {fileID: 11435498}
   - 135: {fileID: 13547772}
   m_Layer: 8
@@ -91,19 +90,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164482}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11414210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 172700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f2f55e580df7549b6a1142ea1eb48d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxSpeed: 100
 --- !u!114 &11435498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,9 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 13547772}
-  projectile: {fileID: 0}
-  range: 20
-  maxDamage: 100
+  cannon: {x: 0, y: 8, z: 0}
+  projectile: {fileID: 146134, guid: 89b796870b0a6b141a4c253e044cd914, type: 2}
+  range: 25
+  maxDamage: 10
   maxAttackPerSecond: 1
 --- !u!135 &13547772
 SphereCollider:
@@ -130,7 +117,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
@@ -153,7 +140,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
@@ -166,6 +153,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: range
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
