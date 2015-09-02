@@ -120,6 +120,7 @@ MonoBehaviour:
   collider: {fileID: 13549450}
   rigidbody: {fileID: 5457328}
   isBeeingUsed: 0
+  effects: []
 --- !u!135 &13549450
 SphereCollider:
   m_ObjectHideFlags: 1
