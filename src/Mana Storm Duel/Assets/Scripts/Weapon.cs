@@ -7,10 +7,8 @@ using System;
 
 public interface IWeaponMessages : IEventSystemHandler
 {
-    void OnUnitEnter(Unit unit);
-    void OnUnitExit(Unit unit);
-}
 
+}
 
 [RequireComponent(typeof(Collider))]
 public class Weapon : MonoBehaviour, IWeaponMessages {
@@ -101,21 +99,17 @@ public class Weapon : MonoBehaviour, IWeaponMessages {
 
     void OnTriggerEnter(Collider col)
     {
-        ExecuteEvents.Execute<IUnitMessage>(col.gameObject, null, (x, y) => x.OnWeaponTarget(this));
+        Unit target = null;
+        ExecuteEvents.Execute<IUnitMessage>(col.gameObject, null, (x, y) => target = x.OnWeaponTarget(this));
+        if (target)
+            listTargets.Add(target);
     }
 
     void OnTriggerExit(Collider col)
     {
-        ExecuteEvents.Execute<IUnitMessage>(col.gameObject, null, (x, y) => x.OnWeaponUnTarget(this));
-    }
-
-    void IWeaponMessages.OnUnitEnter(Unit unit)
-    {
-        listTargets.Add(unit);
-    }
-
-    void IWeaponMessages.OnUnitExit(Unit unit)
-    {
-        listTargets.Remove(unit);
+        Unit target = null;
+        ExecuteEvents.Execute<IUnitMessage>(col.gameObject, null, (x, y) => target = x.OnWeaponUnTarget(this));
+        if (target)
+            listTargets.Remove(target);
     }
 }

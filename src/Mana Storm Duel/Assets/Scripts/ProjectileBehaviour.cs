@@ -23,8 +23,8 @@ public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
     new public Collider collider;
     [SerializeField]
     new public Rigidbody rigidbody; 
-    [SerializeField]
-    bool isBeeingUsed = false;
+    //[SerializeField]
+    //bool isBeeingUsed = false;
     [SerializeField]
     List<Effect> effects = new List<Effect>();
     Unit target;

@@ -7,13 +7,14 @@ using System;
 
 public interface IUnitMessage : IEventSystemHandler
 {
-    void OnWeaponTarget(Weapon weapon);
-    void OnWeaponUnTarget(Weapon weapon);
+    Unit OnWeaponTarget(Weapon weapon);
+    Unit OnWeaponUnTarget(Weapon weapon);
     void OnSufferEffect(Effect[] effect);
 }
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
+[DisallowMultipleComponent]
 public class Unit : MonoBehaviour, IUnitMessage
 {
     [SerializeField]
@@ -45,10 +46,7 @@ public class Unit : MonoBehaviour, IUnitMessage
     
     void FixedUpdate ()
     {
-        if (_hp <= 0)
-        {
-            isDead = true;
-        }
+
     }
 
     public void TakeDamage(int damage)
@@ -61,14 +59,16 @@ public class Unit : MonoBehaviour, IUnitMessage
         }
     }
 
-    void IUnitMessage.OnWeaponTarget(Weapon weapon)
+    Unit IUnitMessage.OnWeaponTarget(Weapon weapon)
     {
-        ExecuteEvents.Execute<IWeaponMessages>(weapon.gameObject, null, (x, y) => x.OnUnitEnter(this));
+        return this;
+        //ExecuteEvents.Execute<IWeaponMessages>(weapon.gameObject, null, (x, y) => x.OnUnitEnter(this));
     }
 
-    void IUnitMessage.OnWeaponUnTarget(Weapon weapon)
+    Unit IUnitMessage.OnWeaponUnTarget(Weapon weapon)
     {
-        ExecuteEvents.Execute<IWeaponMessages>(weapon.gameObject, null, (x, y) => x.OnUnitExit(this));
+        return this;
+        //ExecuteEvents.Execute<IWeaponMessages>(weapon.gameObject, null, (x, y) => x.OnUnitExit(this));
     }
 
     void IUnitMessage.OnSufferEffect(Effect[] effect)
