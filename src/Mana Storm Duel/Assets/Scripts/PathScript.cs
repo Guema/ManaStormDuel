@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class PathScript : MonoBehaviour {
+public class PathScript : MonoBehaviour, IEventSystemHandler {
 
     [SerializeField]
     Transform[] wayPoints;
@@ -10,8 +11,21 @@ public class PathScript : MonoBehaviour {
     [SerializeField]
     Color pathColor = Color.white;
 
-	// Use this for initialization
-	void Start () {
+    public Transform[] WayPoints
+    {
+        get
+        {
+            return wayPoints;
+        }
+
+        set
+        {
+            wayPoints = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -25,13 +39,13 @@ public class PathScript : MonoBehaviour {
         if(drawPaths)
         {
             Gizmos.color = pathColor;
-            for (int i = 0; i < wayPoints.Length; i++)
+            for (int i = 0; i < WayPoints.Length; i++)
             {
-                if (wayPoints[i])
+                if (WayPoints[i])
                 {
-                    Gizmos.DrawSphere(wayPoints[i].position, 0.5f);
-                    if (i + 1 < wayPoints.Length && wayPoints[i + 1])
-                        Gizmos.DrawLine(wayPoints[i].position, wayPoints[i + 1].position);
+                    Gizmos.DrawSphere(WayPoints[i].position, 0.5f);
+                    if (i + 1 < WayPoints.Length && WayPoints[i + 1])
+                        Gizmos.DrawLine(WayPoints[i].position, WayPoints[i + 1].position);
                 }
             }
         }

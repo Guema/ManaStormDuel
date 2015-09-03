@@ -28,7 +28,8 @@ public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
     [SerializeField]
     List<Effect> effects = new List<Effect>();
     Unit target;
-    float speed = 25.0f;
+    [SerializeField]
+    float speed = 50.0f;
 
 
 	// Use this for initialization

@@ -360,6 +360,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 73514447}
+--- !u!114 &88397817 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11441458, guid: be38e6765ab546341ae52a09637deca0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1031854991}
+  m_Script: {fileID: 11500000, guid: 04f2f55e580df7549b6a1142ea1eb48d, type: 3}
 --- !u!1001 &96111754
 Prefab:
   m_ObjectHideFlags: 0
@@ -719,7 +725,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 189970, guid: cfba382af88522d4481c31b108d3fbf9, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8137644, guid: cfba382af88522d4481c31b108d3fbf9, type: 2}
@@ -1142,7 +1148,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 446878, guid: be38e6765ab546341ae52a09637deca0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 44.2999992
+      value: -71.9000015
       objectReference: {fileID: 0}
     - target: {fileID: 446878, guid: be38e6765ab546341ae52a09637deca0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1150,7 +1156,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 446878, guid: be38e6765ab546341ae52a09637deca0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -37.5
       objectReference: {fileID: 0}
     - target: {fileID: 446878, guid: be38e6765ab546341ae52a09637deca0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1172,18 +1178,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 11437796, guid: be38e6765ab546341ae52a09637deca0, type: 2}
-      propertyPath: dest
+    - target: {fileID: 11498822, guid: be38e6765ab546341ae52a09637deca0, type: 2}
+      propertyPath: path
       value: 
-      objectReference: {fileID: 1196106861}
-    - target: {fileID: 11441458, guid: be38e6765ab546341ae52a09637deca0, type: 2}
-      propertyPath: collider
+      objectReference: {fileID: 1304290318}
+    - target: {fileID: 11498822, guid: be38e6765ab546341ae52a09637deca0, type: 2}
+      propertyPath: unit
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11441458, guid: be38e6765ab546341ae52a09637deca0, type: 2}
-      propertyPath: rigidbody
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 88397817}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be38e6765ab546341ae52a09637deca0, type: 2}
   m_IsPrefabParent: 0

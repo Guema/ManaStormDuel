@@ -36,11 +36,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 128676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fe25f558582744b81783eb563a6f07, type: 3}
+  m_Script: {fileID: 11500000, guid: 759c7fcd222f9794196ebbdfe71c88f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waypoints: []
-  ShowWay: 0
+  wayPoints: []
+  drawPaths: 0
+  pathColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

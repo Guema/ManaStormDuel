@@ -19,7 +19,6 @@ public class ControllerBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.mousePresent)
         if(Input.mousePosition.x <= 0 + Tolerance)
             Xaxis = -1;
         else if (Input.mousePosition.x >= Screen.width - Tolerance)
@@ -34,7 +33,7 @@ public class ControllerBehaviour : MonoBehaviour {
         else
             Yaxis = 0;
 
-        direction = Vector3.forward * speed * Yaxis + Vector3.right * speed * Xaxis;
-        transform.position += direction * Time.deltaTime;
+        direction = (Vector3.right * Xaxis + Vector3.forward * Yaxis).normalized;
+        transform.position += direction * speed * Time.deltaTime;
 	}
 }

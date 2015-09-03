@@ -119,8 +119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 13549450}
   rigidbody: {fileID: 5457328}
-  isBeeingUsed: 0
   effects: []
+  speed: 50
 --- !u!135 &13549450
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -168,6 +168,10 @@ Prefab:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 5457328}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 146134}

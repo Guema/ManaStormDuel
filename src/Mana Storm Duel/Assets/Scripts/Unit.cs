@@ -31,12 +31,25 @@ public class Unit : MonoBehaviour, IUnitMessage
     int maxSpeed = 100;
     [SerializeField]
     int _speed;
-    
 
-	// Use this for initialization
-	void Start () {
+    public int Speed
+    {
+        get
+        {
+            return _speed;
+        }
+
+        set
+        {
+            _speed = value;
+        }
+    }
+
+
+    // Use this for initialization
+    void Start () {
         _hp = maxHealth;
-        _speed = maxSpeed;
+        Speed = maxSpeed;
 	}
 	
 	// Update is called once per frame
@@ -62,13 +75,11 @@ public class Unit : MonoBehaviour, IUnitMessage
     Unit IUnitMessage.OnWeaponTarget(Weapon weapon)
     {
         return this;
-        //ExecuteEvents.Execute<IWeaponMessages>(weapon.gameObject, null, (x, y) => x.OnUnitEnter(this));
     }
 
     Unit IUnitMessage.OnWeaponUnTarget(Weapon weapon)
     {
         return this;
-        //ExecuteEvents.Execute<IWeaponMessages>(weapon.gameObject, null, (x, y) => x.OnUnitExit(this));
     }
 
     void IUnitMessage.OnSufferEffect(Effect[] effect)
