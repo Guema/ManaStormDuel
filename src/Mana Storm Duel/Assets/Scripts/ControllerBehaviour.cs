@@ -9,8 +9,8 @@ public class ControllerBehaviour : MonoBehaviour {
     [SerializeField]
     int screenBorderTolerance = 0;
 
-    int Xaxis;
-    int Yaxis;
+    Vector3 directionJoystick;
+
 
 	// Use this for initialization
 	void Start () {
@@ -21,32 +21,34 @@ public class ControllerBehaviour : MonoBehaviour {
 	void Update ()
     {
         if(Input.mousePosition.x <= 0 + screenBorderTolerance)
-            Xaxis = -1;
+            directionJoystick[0] = -1;
         else if (Input.mousePosition.x >= Screen.width - screenBorderTolerance)
-            Xaxis = 1;
+            directionJoystick[0] = 1;
         else
-            Xaxis = 0;
+            directionJoystick[0] = 0;
 
         if (Input.mousePosition.y <= 0 + screenBorderTolerance)
-            Yaxis = -1;
+            directionJoystick[2] = -1;
         else if (Input.mousePosition.y >= Screen.height - screenBorderTolerance)
-            Yaxis = 1;
+            directionJoystick[2] = 1;
         else
-            Yaxis = 0;
-        
+            directionJoystick[2] = 0;
+
+        directionJoystick.Normalize();
+
         if (limit)
         {
             transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x + Xaxis * speed * Time.deltaTime, limit.left, limit.right),
+                Mathf.Clamp(transform.position.x + directionJoystick.x * speed * Time.deltaTime, limit.left, limit.right),
                 transform.position.y,
-                Mathf.Clamp(transform.position.z + Yaxis * speed * Time.deltaTime, limit.top, limit.bottom)); 
+                Mathf.Clamp(transform.position.z + directionJoystick.z * speed * Time.deltaTime, limit.top, limit.bottom)); 
         }
         else
         {
             transform.position = new Vector3(
-                transform.position.x + Xaxis * speed * Time.deltaTime,
+                transform.position.x + directionJoystick.x * speed * Time.deltaTime,
                 transform.position.y,
-                transform.position.z + Yaxis * speed * Time.deltaTime);
+                transform.position.z + directionJoystick.z * speed * Time.deltaTime);
         }
 	}
 }

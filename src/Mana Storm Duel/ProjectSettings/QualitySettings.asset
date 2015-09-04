@@ -28,7 +28,15 @@ QualitySettings:
     lodBias: .300000012
     maximumLODLevel: 0
     particleRaycastBudget: 4
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Web
+    - iPhone
+    - Android
+    - BlackBerry
+    - Windows Store Apps
+    - WP8
+    - WebGL
+    - Samsung TV
   - serializedVersion: 2
     name: Fast
     pixelLightCount: 0
@@ -51,7 +59,15 @@ QualitySettings:
     lodBias: .400000006
     maximumLODLevel: 0
     particleRaycastBudget: 16
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Web
+    - iPhone
+    - Android
+    - BlackBerry
+    - Windows Store Apps
+    - WP8
+    - WebGL
+    - Samsung TV
   - serializedVersion: 2
     name: Simple
     pixelLightCount: 1
@@ -74,7 +90,15 @@ QualitySettings:
     lodBias: .699999988
     maximumLODLevel: 0
     particleRaycastBudget: 64
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Web
+    - iPhone
+    - Android
+    - BlackBerry
+    - Windows Store Apps
+    - WP8
+    - WebGL
+    - Samsung TV
   - serializedVersion: 2
     name: Good
     pixelLightCount: 2
@@ -93,11 +117,19 @@ QualitySettings:
     softVegetation: 1
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 1
-    vSyncCount: 1
+    vSyncCount: 0
     lodBias: 1
     maximumLODLevel: 0
     particleRaycastBudget: 256
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Web
+    - iPhone
+    - Android
+    - BlackBerry
+    - Windows Store Apps
+    - WP8
+    - WebGL
+    - Samsung TV
   - serializedVersion: 2
     name: Beautiful
     pixelLightCount: 3
@@ -116,11 +148,19 @@ QualitySettings:
     softVegetation: 1
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 1
-    vSyncCount: 1
+    vSyncCount: 0
     lodBias: 1.5
     maximumLODLevel: 0
     particleRaycastBudget: 1024
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Web
+    - iPhone
+    - Android
+    - BlackBerry
+    - Windows Store Apps
+    - WP8
+    - WebGL
+    - Samsung TV
   - serializedVersion: 2
     name: Fantastic
     pixelLightCount: 4
@@ -130,7 +170,7 @@ QualitySettings:
     shadowCascades: 4
     shadowDistance: 150
     shadowCascade2Split: .333333343
-    shadowCascade4Split: {x: .0666666701, y: .200000003, z: .466666669}
+    shadowCascade4Split: {x: .0666666701, y: .199999988, z: .466666639}
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 2
@@ -139,11 +179,19 @@ QualitySettings:
     softVegetation: 1
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 1
-    vSyncCount: 1
+    vSyncCount: 0
     lodBias: 2
     maximumLODLevel: 0
     particleRaycastBudget: 4096
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Web
+    - iPhone
+    - Android
+    - BlackBerry
+    - Windows Store Apps
+    - WP8
+    - WebGL
+    - Samsung TV
   m_PerPlatformDefaultQuality:
     Android: 2
     BlackBerry: 2
