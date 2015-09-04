@@ -3,13 +3,14 @@ using System.Collections;
 
 public class ControllerBehaviour : MonoBehaviour {
     [SerializeField]
-    float speed = 30.0f;
+    float speed = 50.0f;
     [SerializeField]
-    int Tolerance = 0;
+    LimitZoneScript limit;
+    [SerializeField]
+    int screenBorderTolerance = 0;
 
     int Xaxis;
     int Yaxis;
-    Vector3 direction = new Vector3();
 
 	// Use this for initialization
 	void Start () {
@@ -19,21 +20,33 @@ public class ControllerBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.mousePosition.x <= 0 + Tolerance)
+        if(Input.mousePosition.x <= 0 + screenBorderTolerance)
             Xaxis = -1;
-        else if (Input.mousePosition.x >= Screen.width - Tolerance)
+        else if (Input.mousePosition.x >= Screen.width - screenBorderTolerance)
             Xaxis = 1;
         else
             Xaxis = 0;
 
-        if (Input.mousePosition.y <= 0 + Tolerance)
+        if (Input.mousePosition.y <= 0 + screenBorderTolerance)
             Yaxis = -1;
-        else if (Input.mousePosition.y >= Screen.height - Tolerance)
+        else if (Input.mousePosition.y >= Screen.height - screenBorderTolerance)
             Yaxis = 1;
         else
             Yaxis = 0;
-
-        direction = (Vector3.right * Xaxis + Vector3.forward * Yaxis).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        
+        if (limit)
+        {
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x + Xaxis * speed * Time.deltaTime, limit.left, limit.right),
+                transform.position.y,
+                Mathf.Clamp(transform.position.z + Yaxis * speed * Time.deltaTime, limit.top, limit.bottom)); 
+        }
+        else
+        {
+            transform.position = new Vector3(
+                transform.position.x + Xaxis * speed * Time.deltaTime,
+                transform.position.y,
+                transform.position.z + Yaxis * speed * Time.deltaTime);
+        }
 	}
 }

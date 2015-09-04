@@ -7,8 +7,6 @@ public class PathScript : MonoBehaviour, IEventSystemHandler {
     [SerializeField]
     Transform[] wayPoints;
     [SerializeField]
-    bool drawPaths;
-    [SerializeField]
     Color pathColor = Color.white;
 
     public Transform[] WayPoints
@@ -36,17 +34,14 @@ public class PathScript : MonoBehaviour, IEventSystemHandler {
 
     void OnDrawGizmos()
     {
-        if(drawPaths)
+        Gizmos.color = pathColor;
+        for (int i = 0; i < WayPoints.Length; i++)
         {
-            Gizmos.color = pathColor;
-            for (int i = 0; i < WayPoints.Length; i++)
+            if (WayPoints[i])
             {
-                if (WayPoints[i])
-                {
-                    Gizmos.DrawSphere(WayPoints[i].position, 0.5f);
-                    if (i + 1 < WayPoints.Length && WayPoints[i + 1])
-                        Gizmos.DrawLine(WayPoints[i].position, WayPoints[i + 1].position);
-                }
+                Gizmos.DrawSphere(WayPoints[i].position, 0.5f);
+                if (i + 1 < WayPoints.Length && WayPoints[i + 1])
+                    Gizmos.DrawLine(WayPoints[i].position, WayPoints[i + 1].position);
             }
         }
     }
