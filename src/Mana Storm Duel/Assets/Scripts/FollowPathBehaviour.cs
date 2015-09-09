@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System;
+
+public interface IFollowPathMessage : IEventSystemHandler
+{
+    void OnSpawn(PathScript path);
+}
 
 [RequireComponent(typeof(Unit))]
-public class FollowPathBehaviour : MonoBehaviour {
+public class FollowPathBehaviour : MonoBehaviour, IFollowPathMessage {
 
     [SerializeField]
     Unit unit;
@@ -22,8 +28,6 @@ public class FollowPathBehaviour : MonoBehaviour {
     void OnEnable()
     {
         waypointIndex = 0;
-        if(path.WayPoints[0])
-            dest = path.WayPoints[0];
     }
 
 	// Update is called once per frame
@@ -39,11 +43,16 @@ public class FollowPathBehaviour : MonoBehaviour {
         }
         transform.position = Vector3.MoveTowards(transform.position,
             dest.position,
-            Time.deltaTime * 15.0f * unit.Speed/100);
+            Time.deltaTime * 10.0f * unit.Speed/100);
     }
 
-    void OnTriggerEnter(Collider collider)
+    void IFollowPathMessage.OnSpawn(PathScript path)
     {
-
+        this.path = path;
+        if(this.path)
+        {
+            waypointIndex = 0;
+            dest = path.WayPoints[0];
+        }
     }
 }

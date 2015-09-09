@@ -27,20 +27,20 @@ public class ButtonBuyTower : MonoBehaviour {
     {
         if(playerStatsScript.mainCamera)
         {      
-            Debug.Log("protutuzej ");
             RaycastHit hit;
             var ray = playerStatsScript.mainCamera.ScreenPointToRay(Input.mousePosition);
             if (collider.Raycast(ray, out hit, 100f))
             {
-                Debug.Log("ici");
                 if (hit.collider == collider)
                 {
-                    Debug.Log("là");
-                    towerBaseScript.BuyButtonPressed();
-                    gameObject.SetActive(false);
+                    if(playerStatsScript.Mana >= 60)
+                    {
+                        playerStatsScript.Mana -= 60;
+                        towerBaseScript.BuyButtonPressed();
+                        gameObject.SetActive(false);
+                    }
                 }
             }
         }
-        
     }
 }

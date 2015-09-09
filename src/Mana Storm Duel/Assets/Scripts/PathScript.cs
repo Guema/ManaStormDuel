@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class PathScript : MonoBehaviour, IEventSystemHandler {
+public class PathScript : MonoBehaviour {
 
     [SerializeField]
     Transform[] wayPoints;

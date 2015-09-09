@@ -15,8 +15,6 @@ public class LimitZoneScript : MonoBehaviour {
     [SerializeField]
     public float right { get { return rect.xMax + transform.position.x; } }
 
-    
-
     void OnDrawGizmos()
     {
         Vector3 topleft, topright, botleft, botright;

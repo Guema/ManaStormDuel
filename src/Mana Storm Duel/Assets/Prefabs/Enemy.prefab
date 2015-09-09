@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3335142}
   - 23: {fileID: 2373626}
   m_Layer: 8
-  m_Name: Cube
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f4980073c70c64389fc6f041293ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
+  unit: {fileID: 11441458}
   path: {fileID: 0}
 --- !u!135 &13547856
 SphereCollider:
@@ -164,6 +164,22 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ed30f0947c37cea48b7c97180662232e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 11441458}
+    - target: {fileID: 0}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: Model
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 125312}
