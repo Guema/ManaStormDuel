@@ -34,19 +34,23 @@ public class EnnemyWavesScript : MonoBehaviour {
 
     void Start()
     {
-        if (true) //condition
+        for(int i = 0; i < spawnPoints.Length; i++)
         {
-            for (int i = 0; i < spawnPoints.Length; i++)
+            for(int j = 0; j < spawnPoints[i].ennemiesConfig.Length; j++)
             {
-                StartCoroutine(SpawnEnnemies(spawnPoints[i], spawnPoints[i].ennemiesConfig));
+                spawnPoints[i].ennemiesConfig[j].textnumber.text =
+                    spawnPoints[i].ennemiesConfig[j].number.ToString();
             }
-
         }
+
     }
 
-    void Update()
+    public void StartWave()
     {
-        
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            StartCoroutine(SpawnEnnemies(spawnPoints[i], spawnPoints[i].ennemiesConfig));
+        }
     }
 
     IEnumerator SpawnEnnemies(Spawn spawn, EnnemiesConfig[] cf)

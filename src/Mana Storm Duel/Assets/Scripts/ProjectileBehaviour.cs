@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Networking;
@@ -53,9 +53,12 @@ public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
         {
             if (col == target.collider)
             {
-                ExecuteEvents.Execute<IUnitMessage>(target.gameObject, null, (x, y) => x.OnSufferEffect(effects.ToArray()));
+                Vector3 vec = (col.transform.position - transform.position).normalized;
+                ExecuteEvents.Execute<IUnitMessage>(target.gameObject,
+                    null,
+                    (x, y) => x.OnSufferEffect(effects.ToArray(), vec));
                 effects.Clear();
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
     }

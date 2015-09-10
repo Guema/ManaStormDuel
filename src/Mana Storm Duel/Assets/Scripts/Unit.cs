@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Networking;
@@ -7,9 +7,9 @@ using System;
 
 public interface IUnitMessage : IEventSystemHandler
 {
-    Unit OnWeaponTarget(Weapon weapon);
-    Unit OnWeaponUnTarget(Weapon weapon);
-    void OnSufferEffect(Effect[] effect);
+    Unit OnTarget();
+    Unit OnUnTarget();
+    void OnSufferEffect(Effect[] effect, Vector3 vec);
 }
 
 [RequireComponent(typeof(Collider))]
@@ -25,11 +25,9 @@ public class Unit : MonoBehaviour, IUnitMessage
     bool isDead = false;
     [SerializeField]
     int maxHealth = 100;
-    [SerializeField]
     int _hp;
     [SerializeField]
     int maxSpeed = 100;
-    [SerializeField]
     int _speed;
 
     public int Speed
@@ -45,6 +43,19 @@ public class Unit : MonoBehaviour, IUnitMessage
         }
     }
 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+
+        set
+        {
+            isDead = value;
+        }
+    }
+
 
     // Use this for initialization
     void Start () {
@@ -56,41 +67,48 @@ public class Unit : MonoBehaviour, IUnitMessage
 	void Update () {
         
 	}
-    
-    void FixedUpdate ()
-    {
 
-    }
-
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 vec)
     {
-        _hp = _hp - damage;
-        if (_hp <= 0)
+        if(!isDead)
         {
-            _hp = 0;
-            isDead = true;
+            _hp = _hp - damage;
+            if (_hp <= 0)
+            {
+                _hp = 0;
+                IsDead = true;
+                StartCoroutine(OnDeath());
+                rigidbody.AddForce(vec * 3000f);
+            }
         }
     }
 
-    Unit IUnitMessage.OnWeaponTarget(Weapon weapon)
+    IEnumerator OnDeath()
+    {
+        rigidbody.isKinematic = false;
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
+    }
+
+    Unit IUnitMessage.OnTarget()
     {
         return this;
     }
 
-    Unit IUnitMessage.OnWeaponUnTarget(Weapon weapon)
+    Unit IUnitMessage.OnUnTarget()
     {
         return this;
     }
 
-    void IUnitMessage.OnSufferEffect(Effect[] effect)
+    void IUnitMessage.OnSufferEffect(Effect[] effect, Vector3 vec)
     {
         for(int i = 0; i < effect.Length; i++)
         {
             DamageEffect e;
             if (e = effect[i] as DamageEffect)
             {
-                TakeDamage(e.Damage);
+                TakeDamage(e.Damage, vec);
             }
-        } 
+        }
     }
 }

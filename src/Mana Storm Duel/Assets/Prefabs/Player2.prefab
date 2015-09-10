@@ -149,7 +149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &127072
 GameObject:
   m_ObjectHideFlags: 1
@@ -563,7 +563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &173358
 GameObject:
   m_ObjectHideFlags: 1
@@ -1313,19 +1313,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3875b4b29889e48aeab3fb29474673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnFrequency: 1
+  spawnFrequency: 2
   spawnPoints:
   - pathScript: {fileID: 0}
     ennemiesConfig:
     - prefab: {fileID: 125312, guid: be38e6765ab546341ae52a09637deca0, type: 2}
-      number: 0
-      count: 0
+      number: 8
       textnumber: {fileID: 11482136}
   - pathScript: {fileID: 0}
     ennemiesConfig:
     - prefab: {fileID: 125312, guid: be38e6765ab546341ae52a09637deca0, type: 2}
-      number: 0
-      count: 0
+      number: 8
       textnumber: {fileID: 11478424}
 --- !u!114 &11448880
 MonoBehaviour:

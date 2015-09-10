@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerStatsScript : MonoBehaviour {
 
+    [SerializeField]
+    int lifeNumber = 20;
     [SerializeField]
     int mana = 200;
     [SerializeField]
@@ -44,6 +46,19 @@ public class PlayerStatsScript : MonoBehaviour {
             anima = value;
             if(animaText)
                 animaText.text = anima.ToString();
+        }
+    }
+
+    public int LifeNumber
+    {
+        get
+        {
+            return lifeNumber;
+        }
+
+        set
+        {
+            lifeNumber = value;
         }
     }
 

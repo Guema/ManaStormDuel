@@ -33,17 +33,20 @@ public class FollowPathBehaviour : MonoBehaviour, IFollowPathMessage {
 	// Update is called once per frame
 	void Update ()
     {
-        if(transform.position == dest.position)
+        if(!unit.IsDead)
         {
-            if(waypointIndex < path.WayPoints.Length-1)
+            if (transform.position == dest.position)
             {
-                waypointIndex++;
-                dest = path.WayPoints[waypointIndex];
+                if (waypointIndex < path.WayPoints.Length - 1)
+                {
+                    waypointIndex++;
+                    dest = path.WayPoints[waypointIndex];
+                }
             }
+            transform.position = Vector3.MoveTowards(transform.position,
+                dest.position,
+                Time.deltaTime * 10.0f * unit.Speed / 100);
         }
-        transform.position = Vector3.MoveTowards(transform.position,
-            dest.position,
-            Time.deltaTime * 10.0f * unit.Speed/100);
     }
 
     void IFollowPathMessage.OnSpawn(PathScript path)
