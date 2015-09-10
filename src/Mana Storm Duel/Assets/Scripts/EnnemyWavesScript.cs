@@ -10,8 +10,8 @@ public class EnnemyWavesScript : MonoBehaviour {
     {
         [SerializeField]
         public GameObject prefab;
+        [SerializeField]
         public int number;
-        public int count;
         [SerializeField]
         public Text textnumber;
     }
@@ -27,23 +27,20 @@ public class EnnemyWavesScript : MonoBehaviour {
 
     [SerializeField]
     float spawnFrequency = 1f;
+    float lastTime = 0f;
 
     [SerializeField]
     Spawn[] spawnPoints;
 
     void Start()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
+        if (true) //condition
         {
-            for (int j = 0; j < spawnPoints[i].ennemiesConfig.Length; j++)
+            for (int i = 0; i < spawnPoints.Length; i++)
             {
-                var temp = Instantiate(spawnPoints[i].ennemiesConfig[j].prefab);
-                temp.transform.position = spawnPoints[i].pathScript.WayPoints[0].position;
-                ExecuteEvents.Execute<IFollowPathMessage>(
-                    temp,
-                    null,
-                    (x, y) => x.OnSpawn(spawnPoints[i].pathScript));
+                StartCoroutine(SpawnEnnemies(spawnPoints[i], spawnPoints[i].ennemiesConfig));
             }
+
         }
     }
 
@@ -52,5 +49,21 @@ public class EnnemyWavesScript : MonoBehaviour {
         
     }
 
-
+    IEnumerator SpawnEnnemies(Spawn spawn, EnnemiesConfig[] cf)
+    {
+        for (int i = 0; i < cf.Length; i++)
+        {
+            for(int j = 0; j < cf[i].number; j++)
+            {
+                var temp = Instantiate(cf[i].prefab);
+                temp.transform.position = spawn.pathScript.WayPoints[0].position;
+                ExecuteEvents.Execute<IFollowPathMessage>(
+                    temp,
+                    null,
+                    (x, y) => x.OnSpawn(spawn.pathScript));
+                yield return new WaitForSeconds(spawnFrequency);
+            }
+        }
+        yield break;
+    }
 }
