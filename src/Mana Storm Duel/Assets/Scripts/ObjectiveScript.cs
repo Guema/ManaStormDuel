@@ -1,13 +1,16 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider))]
-public class ObjectiveScript : MonoBehaviour {
+public class ObjectiveScript : NetworkBehaviour {
 
+    [SyncVar]
     [SerializeField]
-    PlayerStatsScript playerStats;
+    PlayerScript playerScript;
 
+    [SyncVar]
     [SerializeField]
     new Collider collider;
 
@@ -33,7 +36,7 @@ public class ObjectiveScript : MonoBehaviour {
         {
             if(!target.IsDead)
             {
-                playerStats.LifeNumber--;
+                playerScript.LifeNumber--;
                 Destroy(target.gameObject);
             }
         }

@@ -1,21 +1,25 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class PlayerStatsScript : MonoBehaviour {
+public class PlayerScript : NetworkBehaviour {
 
+    [SyncVar]
     [SerializeField]
     int lifeNumber = 20;
+    [SyncVar]
     [SerializeField]
     int mana = 200;
     [SerializeField]
     Text manaText;
+    [SyncVar]
     [SerializeField]
     int anima = 0;
     [SerializeField]
     Text animaText;
     [SerializeField]
-    TowerBaseScript[] towerBases;
+    TowerScript[] towerBases;
     [SerializeField]
     public Camera mainCamera;
 

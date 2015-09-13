@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 
-public class GameScequenceScript : MonoBehaviour {
+public class GameScequenceScript : NetworkBehaviour {
 
     enum GameState
     {
+        initializingPhase,
         pausePhase,
         combatPhase
     }
@@ -21,7 +23,7 @@ public class GameScequenceScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        OnWaveCleaned();
+        gamePhase = GameState.initializingPhase;
 	}
 	
 	// Update is called once per frame

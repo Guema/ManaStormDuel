@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 441564}
   - 135: {fileID: 13589290}
+  - 114: {fileID: 11454008}
   m_Layer: 0
   m_Name: Objective
   m_TagString: Untagged
@@ -28,6 +29,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11454008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3887c936309d7e343a6737ebd503b56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  collider: {fileID: 13589290}
 --- !u!135 &13589290
 SphereCollider:
   m_ObjectHideFlags: 1

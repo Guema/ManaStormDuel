@@ -1,46 +1,35 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ButtonBuyTower : MonoBehaviour {
 
     [SerializeField]
-    TowerBaseScript towerBaseScript;
+    TowerScript towerBaseScript;
     [SerializeField]
     new Collider collider;
     [SerializeField]
-    PlayerStatsScript playerStatsScript;
+    PlayerScript playerScript;
     
 	// Use this for initialization
-	void Start () {
-	}
 
-	// Update is called once per frame
-	void Update ()
-    {
-        if(Camera.current)
+    void OnMouseUp()
+    {  
+        RaycastHit hit;
+        var ray = playerScript.mainCamera.ScreenPointToRay(Input.mousePosition);
+        bool result;
+        if (result = Physics.Raycast(ray, out hit, 1000f))
         {
-            transform.LookAt(Camera.current.transform.position);
-        }
-	}
-
-    void OnMouseDown()
-    {
-        if(playerStatsScript.mainCamera)
-        {      
-            RaycastHit hit;
-            var ray = playerStatsScript.mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (collider.Raycast(ray, out hit, 100f))
+            
+            if (hit.collider == collider)
             {
-                if (hit.collider == collider)
+                if(playerScript.Mana >= 60)
                 {
-                    if(playerStatsScript.Mana >= 60)
-                    {
-                        playerStatsScript.Mana -= 60;
-                        towerBaseScript.BuyButtonPressed();
-                        gameObject.SetActive(false);
-                    }
+                    playerScript.Mana -= 60;
+                    towerBaseScript.BuyButtonPressed();
+                    gameObject.SetActive(false);
                 }
             }
         }
+        Debug.Log(result);
     }
 }

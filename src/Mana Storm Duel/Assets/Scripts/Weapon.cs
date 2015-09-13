@@ -11,30 +11,41 @@ public interface IWeaponMessages : IEventSystemHandler
 }
 
 [RequireComponent(typeof(Collider))]
-public class Weapon : MonoBehaviour, IWeaponMessages {
+[ExecuteInEditMode]
+public class Weapon : NetworkBehaviour, IWeaponMessages {
 
+    [SyncVar]
     [SerializeField]
-    SphereCollider sphere;
+    SphereCollider triggerCollider;
 
+    [SyncVar]
     [SerializeField]
     Vector3 cannon = new Vector3(0.0f, 0.0f, 0.0f);
 
+    [SyncVar]
     [SerializeField]
     GameObject projectile;
-    
+
+    [SyncVar]
     [SerializeField]
     List<Effect> effects = new List<Effect>();
 
+    [SyncVar]
     [SerializeField]
     int range = 10;
 
+    [SyncVar]
     [SerializeField]
     int maxDamage = 100;
+    [SyncVar]
     int damage;
 
+    [SyncVar]
     [SerializeField]
     float maxAttackPerSecond = 1.0f;
+    [SyncVar]
     float attackPerSecond;
+    [SyncVar]
     float last_attack = 0.0f;
 
     [SerializeField]
@@ -58,15 +69,15 @@ public class Weapon : MonoBehaviour, IWeaponMessages {
     {
         Damage = maxDamage;
         attackPerSecond = maxAttackPerSecond;
-        sphere.radius = range;
-        sphere.isTrigger = true;
+        triggerCollider.radius = range;
+        triggerCollider.isTrigger = true;
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        sphere.radius = range;
+        triggerCollider.radius = range;
         attackPerSecond = maxAttackPerSecond;
         Unit target;
         if ((target = Target()) && CanAttack())

@@ -6,7 +6,7 @@ public class ButtonPanelScript : MonoBehaviour {
     [SerializeField]
     GameObject panel;
     [SerializeField]
-    ControllerBehaviour controller;
+    CameraBehaviour controller;
 
 	// Use this for initialization
 	void Start () {

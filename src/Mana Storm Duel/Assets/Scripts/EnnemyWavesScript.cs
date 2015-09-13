@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class EnnemyWavesScript : MonoBehaviour {
+public class EnnemyWavesScript : NetworkBehaviour {
     
     [System.Serializable]
     struct EnnemiesConfig
@@ -23,11 +24,12 @@ public class EnnemyWavesScript : MonoBehaviour {
         public PathScript pathScript;
         [SerializeField]
         public EnnemiesConfig[] ennemiesConfig;
+
     }
 
+    [SyncVar]
     [SerializeField]
     float spawnFrequency = 1f;
-    float lastTime = 0f;
 
     [SerializeField]
     Spawn[] spawnPoints;

@@ -19,6 +19,7 @@ public interface IProjectileMessage : IEventSystemHandler
 [RequireComponent(typeof(Rigidbody))]
 public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
 {
+
     [SerializeField]
     new public Collider collider;
     [SerializeField]

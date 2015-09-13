@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.Networking;
 
 public interface IFollowPathMessage : IEventSystemHandler
 {
@@ -9,13 +10,17 @@ public interface IFollowPathMessage : IEventSystemHandler
 }
 
 [RequireComponent(typeof(Unit))]
-public class FollowPathBehaviour : MonoBehaviour, IFollowPathMessage {
+public class FollowPathBehaviour : NetworkBehaviour, IFollowPathMessage {
 
+    [SyncVar]
     [SerializeField]
     Unit unit;
+    [SyncVar]
     [SerializeField]
     PathScript path;
+    [SyncVar]
     Transform dest;
+    [SyncVar]
     int waypointIndex = 0;
 
 

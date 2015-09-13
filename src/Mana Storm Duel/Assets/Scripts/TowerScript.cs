@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class TowerBaseScript : MonoBehaviour {
+public class TowerScript : NetworkBehaviour {
 
     [SerializeField]
     GameObject[] towersPrefabs;
     GameObject[] towers;
-    [SerializeField]
+    [SyncVar]
     int UpgradeLevel = 0;
 
 

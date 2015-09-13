@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using System;
 
@@ -15,19 +15,25 @@ public interface IUnitMessage : IEventSystemHandler
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 [DisallowMultipleComponent]
-public class Unit : MonoBehaviour, IUnitMessage
+public class Unit : NetworkBehaviour, IUnitMessage
 {
-    [SerializeField]
+
+    [SyncVar] [SerializeField]
     new public Collider collider;
-    [SerializeField]
+    [SyncVar] [SerializeField]
     new public Rigidbody rigidbody;
 
+    [SyncVar]
     bool isDead = false;
+    [SyncVar]
     [SerializeField]
     int maxHealth = 100;
+    [SyncVar]
     int _hp;
+    [SyncVar]
     [SerializeField]
     int maxSpeed = 100;
+    [SyncVar]
     int _speed;
 
     public int Speed
