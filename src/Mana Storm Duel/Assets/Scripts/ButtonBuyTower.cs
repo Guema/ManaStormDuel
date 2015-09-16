@@ -1,35 +1,31 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
+using System;
+using UnityEngine.Networking;
 
-public class ButtonBuyTower : MonoBehaviour {
+public interface IGameUIMessage : IEventSystemHandler
+{
+    void OnPlayerClick(PlayerScript playerScript);
+}
+
+public abstract class TowerButton : MonoBehaviour, IGameUIMessage
+{
 
     [SerializeField]
-    TowerScript towerBaseScript;
+    protected TowerScript towerScript;
     [SerializeField]
-    new Collider collider;
-    [SerializeField]
-    PlayerScript playerScript;
-    
-	// Use this for initialization
+    protected new Collider collider;
 
-    void OnMouseUp()
-    {  
-        RaycastHit hit;
-        var ray = playerScript.mainCamera.ScreenPointToRay(Input.mousePosition);
-        bool result;
-        if (result = Physics.Raycast(ray, out hit, 1000f))
-        {
-            
-            if (hit.collider == collider)
-            {
-                if(playerScript.Mana >= 60)
-                {
-                    playerScript.Mana -= 60;
-                    towerBaseScript.BuyButtonPressed();
-                    gameObject.SetActive(false);
-                }
-            }
-        }
-        Debug.Log(result);
+    public abstract void OnPlayerClick(PlayerScript playerScript);
+}
+
+
+public class ButtonBuyTower : TowerButton
+{
+    public override void OnPlayerClick(PlayerScript playerScript)
+    {
+        //towerScript.CmdSetUpgradeLevel(towerScript.UpgradeLevel + 1);
+        towerScript.CmdBuyTower(playerScript);
     }
 }

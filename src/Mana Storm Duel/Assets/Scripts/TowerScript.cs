@@ -3,47 +3,59 @@ using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.EventSystems;
 
+[DisallowMultipleComponent]
+[SelectionBase]
 public class TowerScript : NetworkBehaviour {
 
-    [SerializeField]
-    GameObject[] towersPrefabs;
-    GameObject[] towers;
     [SyncVar]
-    int UpgradeLevel = 0;
+    [SerializeField]
+    string faction = "Enter faction name here";
+    [SerializeField]
+    GameObject[] towersObjects;
+    [SyncVar]
+    [SerializeField]
+    int upgradeLevel = 0;
 
-
-    //On game loading
-	void Awake()
+    public int UpgradeLevel
     {
-        towers = new GameObject[towersPrefabs.Length];
-        for(int i = 0; i < towersPrefabs.Length; i++)
+        get
         {
-            if(towersPrefabs[i])
-            {
-                towers[i] = Instantiate(towersPrefabs[i]);
-                towers[i].transform.parent = transform;
-                towers[i].transform.localPosition = Vector3.zero;
-                if (i != UpgradeLevel)
-                    towers[i].SetActive(false);
-            }
+            return upgradeLevel;
         }
     }
 
-    public void BuyButtonPressed()
+    void OnEnable()
     {
-        UpgradeLevel++;
-        for (int i = 0; i < towers.Length; i++)
+        //CmdSetUpgradeLevel(UpgradeLevel);
+    }
+
+    [Command]
+    public void CmdBuyTower(PlayerScript playerScript)
+    {
+        Debug.Log(playerScript);
+        if(upgradeLevel == 0)
         {
-            if (i == UpgradeLevel)
+            if (upgradeLevel + 1 < towersObjects.Length)
             {
-                if(towers[i])
-                    towers[i].SetActive(true);
+                upgradeLevel++;
+                towersObjects[upgradeLevel].SetActive(true);
+                towersObjects[0].SetActive(false);
             }
-            else
-            {
-                if(towers[i])
-                    towers[i].SetActive(false);
-            }
+        }
+        RpcBuyTower();
+    }
+
+    [ClientRpc]
+    public void RpcBuyTower()
+    {
+        if (1 < towersObjects.Length)
+        {
+
+            upgradeLevel = 1;
+
+            towersObjects[upgradeLevel].SetActive(true);
+            towersObjects[0].SetActive(false);
+
         }
     }
 }

@@ -1,8 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System;
 
-public class PathScript : MonoBehaviour {
+public interface IPathScriptMessage : IEventSystemHandler
+{
+    PathScript GetPathScript();
+}
+
+[DisallowMultipleComponent]
+public class PathScript : MonoBehaviour, IPathScriptMessage {
 
     [SerializeField]
     Transform[] wayPoints;
@@ -21,11 +28,6 @@ public class PathScript : MonoBehaviour {
             wayPoints = value;
         }
     }
-
-    // Use this for initialization
-    void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,5 +46,10 @@ public class PathScript : MonoBehaviour {
                     Gizmos.DrawLine(WayPoints[i].position, WayPoints[i + 1].position);
             }
         }
+    }
+
+    PathScript IPathScriptMessage.GetPathScript()
+    {
+        return this;
     }
 }

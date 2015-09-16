@@ -12,23 +12,13 @@ public interface IFollowPathMessage : IEventSystemHandler
 [RequireComponent(typeof(Unit))]
 public class FollowPathBehaviour : NetworkBehaviour, IFollowPathMessage {
 
-    [SyncVar]
     [SerializeField]
     Unit unit;
-    [SyncVar]
     [SerializeField]
     PathScript path;
-    [SyncVar]
     Transform dest;
     [SyncVar]
     int waypointIndex = 0;
-
-
-	// Use this for initialization
-	void Start ()
-    {
-        
-	}
 	
     void OnEnable()
     {
@@ -38,19 +28,22 @@ public class FollowPathBehaviour : NetworkBehaviour, IFollowPathMessage {
 	// Update is called once per frame
 	void Update ()
     {
-        if(!unit.IsDead)
+        if(isServer)
         {
-            if (transform.position == dest.position)
+            if (dest && !unit.IsDead)
             {
-                if (waypointIndex < path.WayPoints.Length - 1)
+                if (transform.position == dest.position)
                 {
-                    waypointIndex++;
-                    dest = path.WayPoints[waypointIndex];
+                    if (waypointIndex < path.WayPoints.Length - 1)
+                    {
+                        waypointIndex++;
+                        dest = path.WayPoints[waypointIndex];
+                    }
                 }
+                transform.position = Vector3.MoveTowards(transform.position,
+                    dest.position,
+                    Time.deltaTime * 10.0f * unit.Speed / 100);
             }
-            transform.position = Vector3.MoveTowards(transform.position,
-                dest.position,
-                Time.deltaTime * 10.0f * unit.Speed / 100);
         }
     }
 

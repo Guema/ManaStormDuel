@@ -1,81 +1,52 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class PlayerScript : NetworkBehaviour {
-
+public class PlayerScript : NetworkBehaviour
+{
     [SyncVar]
     [SerializeField]
-    int lifeNumber = 20;
-    [SyncVar]
+    string faction = "Enter faction name here";
     [SerializeField]
-    int mana = 200;
+    new Camera camera;
     [SerializeField]
-    Text manaText;
-    [SyncVar]
+    LayerMask UILayerMask;
     [SerializeField]
-    int anima = 0;
-    [SerializeField]
-    Text animaText;
-    [SerializeField]
-    TowerScript[] towerBases;
-    [SerializeField]
-    public Camera mainCamera;
+    LayerMask UnitsLayerMask;
 
-    public int Mana
+    public string Faction
     {
         get
         {
-            return mana;
+            return faction;
         }
 
         set
         {
-            mana = value;
-            if(manaText)
-                manaText.text = mana.ToString();
+            faction = value;
         }
     }
 
-    public int Anima
+    void Update()
     {
-        get
+        if (Input.GetMouseButtonUp(0))
         {
-            return anima;
-        }
-
-        set
-        {
-            anima = value;
-            if(animaText)
-                animaText.text = anima.ToString();
+            CallUIMessage();
         }
     }
 
-    public int LifeNumber
+    void CallUIMessage()
     {
-        get
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f, UILayerMask))
         {
-            return lifeNumber;
-        }
-
-        set
-        {
-            lifeNumber = value;
+            Debug.Log(hit.collider);
+            ExecuteEvents.Execute<IGameUIMessage>(
+                hit.collider.gameObject,
+                null,
+                (x, y) => x.OnPlayerClick(this));
         }
     }
-
-    // Use this for initialization
-    void Start () {
-        if(manaText)
-            manaText.text = mana.ToString();
-        if(animaText)
-            animaText.text = anima.ToString();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

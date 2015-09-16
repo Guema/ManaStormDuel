@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
-public class CameraBehaviour : MonoBehaviour {
+public class CameraBehaviour : NetworkBehaviour {
 
     [SerializeField]
     new GameObject camera;
@@ -10,44 +10,68 @@ public class CameraBehaviour : MonoBehaviour {
     float speed = 50.0f;
     [SerializeField]
     LimitZoneScript limit;
-    [SerializeField]
-    int screenBorderTolerance = 0;
+    //[SerializeField]
+    //float screenBorderTolerance = 1f;
 
+    [SyncVar]
     Vector3 directionJoystick;
+
+    public LimitZoneScript Limit
+    {
+        get
+        {
+            return limit;
+        }
+
+        set
+        {
+            limit = value;
+        }
+    }
+
+    void Start()
+    {
+        if (isLocalPlayer)
+            camera.SetActive(true);
+    }
+
 
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.mousePosition.x <= 0 + screenBorderTolerance)
-            directionJoystick[0] = -1;
-        else if (Input.mousePosition.x >= Screen.width - screenBorderTolerance)
-            directionJoystick[0] = 1;
-        else
-            directionJoystick[0] = 0;
-
-        if (Input.mousePosition.y <= 0 + screenBorderTolerance)
-            directionJoystick[2] = -1;
-        else if (Input.mousePosition.y >= Screen.height - screenBorderTolerance)
-            directionJoystick[2] = 1;
-        else
-            directionJoystick[2] = 0;
-
-        directionJoystick.Normalize();
-
-        if (limit)
+        if(isLocalPlayer)
         {
-            transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x + directionJoystick.x * speed * Time.deltaTime, limit.left, limit.right),
-                transform.position.y,
-                Mathf.Clamp(transform.position.z + directionJoystick.z * speed * Time.deltaTime, limit.top, limit.bottom));
-        }
-        else
-        {
-            
-            transform.position = new Vector3(
-                transform.position.x + directionJoystick.x * speed * Time.deltaTime,
-                transform.position.y,
-                transform.position.z + directionJoystick.z * speed * Time.deltaTime);
+            if (Input.mousePosition.x <= 0)
+                directionJoystick[0] = -1;
+            else if (Input.mousePosition.x >= Screen.width-1)
+                directionJoystick[0] = 1;
+            else
+                directionJoystick[0] = 0;
+
+            if (Input.mousePosition.y <= 0)
+                directionJoystick[2] = -1;
+            else if (Input.mousePosition.y >= Screen.height-1)
+                directionJoystick[2] = 1;
+            else
+                directionJoystick[2] = 0;
+
+            directionJoystick.Normalize();
+
+            if (Limit)
+            {
+                transform.position = new Vector3(
+                    Mathf.Clamp(transform.position.x + directionJoystick.x * speed * Time.deltaTime, Limit.left, Limit.right),
+                    transform.position.y,
+                    Mathf.Clamp(transform.position.z + directionJoystick.z * speed * Time.deltaTime, Limit.top, Limit.bottom));
+            }
+            else
+            {
+
+                transform.position = new Vector3(
+                    transform.position.x + directionJoystick.x * speed * Time.deltaTime,
+                    transform.position.y,
+                    transform.position.z + directionJoystick.z * speed * Time.deltaTime);
+            }
         }
 	}
 }

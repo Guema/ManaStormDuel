@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 474184}
   - 33: {fileID: 3331256}
   - 23: {fileID: 2318776}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TowerModel01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 11460288}
   - 135: {fileID: 13534420}
   - 114: {fileID: 11403248}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &119706
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -46,8 +46,8 @@ GameObject:
   - 4: {fileID: 496948}
   - 33: {fileID: 3346328}
   - 23: {fileID: 2331166}
-  m_Layer: 0
-  m_Name: TowerBase
+  m_Layer: 8
+  m_Name: TowerModel00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,8 +63,25 @@ GameObject:
   - 4: {fileID: 456942}
   - 65: {fileID: 6574698}
   - 114: {fileID: 11430182}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonBuyTower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &174540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 436878}
+  - 33: {fileID: 3345516}
+  - 23: {fileID: 2321522}
+  m_Layer: 8
+  m_Name: TowerModel00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +97,7 @@ GameObject:
   - 4: {fileID: 436914}
   - 33: {fileID: 3396060}
   - 23: {fileID: 2311078}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,14 +111,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.1627197, y: 10.8296394, z: 47.437912}
+  m_LocalPosition: {x: -18.2299995, y: 4.8499999, z: -35.8499985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 456942}
-  - {fileID: 496948}
+  - {fileID: 436878}
   - {fileID: 474184}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &436878
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174540}
+  m_LocalRotation: {x: 0, y: .382683456, z: 0, w: .923879504}
+  m_LocalPosition: {x: 0, y: .5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 428890}
+  m_RootOrder: 1
 --- !u!4 &436914
 Transform:
   m_ObjectHideFlags: 1
@@ -136,7 +165,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5.75, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
-  m_Children: []
+  m_Children:
+  - {fileID: 496948}
   m_Father: {fileID: 428890}
   m_RootOrder: 2
 --- !u!4 &496948
@@ -146,11 +176,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119706}
   m_LocalRotation: {x: 0, y: .382683456, z: 0, w: .923879504}
-  m_LocalPosition: {x: 0, y: .5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -1.05000007, z: 0}
+  m_LocalScale: {x: .200000018, y: .200000003, z: .200000018}
   m_Children: []
-  m_Father: {fileID: 428890}
-  m_RootOrder: 1
+  m_Father: {fileID: 474184}
+  m_RootOrder: 0
 --- !u!23 &2311078
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -199,6 +229,30 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!23 &2321522
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174540}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 36744cbfc70736b4fad42ee40fe6471e, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!23 &2331166
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -230,6 +284,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105510}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3345516
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174540}
+  m_Mesh: {fileID: 4300000, guid: 0f10d66c1b8624b4e9567c524d15f735, type: 3}
 --- !u!33 &3346328
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -287,7 +348,7 @@ MonoBehaviour:
     i14: 139
     i15: 67
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &11430182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,9 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0e15e54f6d75646b19f835e0e1c5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerBaseScript: {fileID: 11455786}
+  towerScript: {fileID: 11455786}
   collider: {fileID: 6574698}
-  playerScript: {fileID: 0}
 --- !u!114 &11455786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,9 +373,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c1ee03293b89742953b0cada5d6f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towersPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
+  faction: Defender
+  towersObjects:
+  - {fileID: 174540}
+  - {fileID: 105510}
+  upgradeLevel: 0
 --- !u!114 &11460288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,7 +392,8 @@ MonoBehaviour:
   triggerCollider: {fileID: 13534420}
   cannon: {x: 0, y: 0, z: 0}
   projectile: {fileID: 146134, guid: 89b796870b0a6b141a4c253e044cd914, type: 2}
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: 48da02986ac06504ab54685be4360ab3, type: 2}
   range: 30
   maxDamage: 10
   maxAttackPerSecond: 1
@@ -354,6 +417,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: effects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: prefabOfButton
       value: 
@@ -405,6 +472,23 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Name
       value: TowerBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: effects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 48da02986ac06504ab54685be4360ab3,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPlayerAuthority
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -15,25 +15,21 @@ public interface IUnitMessage : IEventSystemHandler
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 [DisallowMultipleComponent]
+[SelectionBase]
 public class Unit : NetworkBehaviour, IUnitMessage
 {
-
     [SyncVar] [SerializeField]
     new public Collider collider;
     [SyncVar] [SerializeField]
     new public Rigidbody rigidbody;
 
-    [SyncVar]
     bool isDead = false;
-    [SyncVar]
     [SerializeField]
     int maxHealth = 100;
-    [SyncVar]
+    [SerializeField]
     int _hp;
-    [SyncVar]
     [SerializeField]
     int maxSpeed = 100;
-    [SyncVar]
     int _speed;
 
     public int Speed
@@ -74,23 +70,24 @@ public class Unit : NetworkBehaviour, IUnitMessage
         
 	}
 
-    public void TakeDamage(int damage, Vector3 vec)
+    [Command]
+    public void CmdTakeDamage(int damage, Vector3 vec)
     {
-        if(!isDead)
+        _hp = _hp - damage;
+        if (_hp <= 0)
         {
-            _hp = _hp - damage;
-            if (_hp <= 0)
+            _hp = 0;
+            if(!isDead)
             {
-                _hp = 0;
-                IsDead = true;
                 StartCoroutine(OnDeath());
-                rigidbody.AddForce(vec * 3000f);
             }
+            rigidbody.AddForce(vec * 2000f);
         }
     }
 
     IEnumerator OnDeath()
     {
+        isDead = true;
         rigidbody.isKinematic = false;
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
@@ -113,7 +110,7 @@ public class Unit : NetworkBehaviour, IUnitMessage
             DamageEffect e;
             if (e = effect[i] as DamageEffect)
             {
-                TakeDamage(e.Damage, vec);
+                CmdTakeDamage(e.Damage, vec);
             }
         }
     }

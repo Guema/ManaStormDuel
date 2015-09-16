@@ -13,39 +13,49 @@ public class GameScequenceScript : NetworkBehaviour {
     }
 
     [SerializeField]
+    float pauseLength = 15f;
+
+    [SerializeField]
+    float waveLength = 30f;
+
+    [SyncVar]
+    [SerializeField]
     float timeRemaining = 0.0f;
 
     [SerializeField]
     EnnemyWavesScript ennemyWavesScript;
 
+    [SyncVar]
     [SerializeField]
-    GameState gamePhase = GameState.pausePhase;
+    GameState gamePhase = GameState.initializingPhase;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         gamePhase = GameState.initializingPhase;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
+    }
 
     public delegate void ChronoCallback();
+
+    public void OnLetsPlay()
+    {
+        gamePhase = GameState.pausePhase;
+        StartCoroutine(Chronometer(10f, OnStartWave));
+    }
+
+
     public void OnWaveCleaned()
     {
         gamePhase = GameState.pausePhase;
-        StartCoroutine(Chronometer(5f, OnStartWave));
+        StartCoroutine(Chronometer(pauseLength, OnStartWave));
     }
 
     public void OnStartWave()
     {
         gamePhase = GameState.combatPhase;
         ennemyWavesScript.StartWave();
-        StartCoroutine(Chronometer(20f, OnWaveCleaned));
+        StartCoroutine(Chronometer(waveLength, OnWaveCleaned));
     }
-
 
     IEnumerator Chronometer(float timer, ChronoCallback EndFunction)
     {

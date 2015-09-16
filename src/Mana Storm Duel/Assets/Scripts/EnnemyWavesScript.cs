@@ -5,71 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class EnnemyWavesScript : NetworkBehaviour {
-    
-    [System.Serializable]
-    struct EnnemiesConfig
-    {
-        [SerializeField]
-        public GameObject prefab;
-        [SerializeField]
-        public int number;
-        [SerializeField]
-        public Text textnumber;
-    }
-
-    [System.Serializable]
-    struct Spawn
-    {
-        [SerializeField]
-        public PathScript pathScript;
-        [SerializeField]
-        public EnnemiesConfig[] ennemiesConfig;
-
-    }
-
-    [SyncVar]
-    [SerializeField]
-    float spawnFrequency = 1f;
-
-    [SerializeField]
-    Spawn[] spawnPoints;
-
-    void Start()
-    {
-        for(int i = 0; i < spawnPoints.Length; i++)
-        {
-            for(int j = 0; j < spawnPoints[i].ennemiesConfig.Length; j++)
-            {
-                spawnPoints[i].ennemiesConfig[j].textnumber.text =
-                    spawnPoints[i].ennemiesConfig[j].number.ToString();
-            }
-        }
-
-    }
 
     public void StartWave()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
+        for (int i = 0; i < SpawnerScript.spawners.Count; i++)
         {
-            StartCoroutine(SpawnEnnemies(spawnPoints[i], spawnPoints[i].ennemiesConfig));
+            SpawnerScript.spawners[i].SpawnWave();
         }
-    }
-
-    IEnumerator SpawnEnnemies(Spawn spawn, EnnemiesConfig[] cf)
-    {
-        for (int i = 0; i < cf.Length; i++)
-        {
-            for(int j = 0; j < cf[i].number; j++)
-            {
-                var temp = Instantiate(cf[i].prefab);
-                temp.transform.position = spawn.pathScript.WayPoints[0].position;
-                ExecuteEvents.Execute<IFollowPathMessage>(
-                    temp,
-                    null,
-                    (x, y) => x.OnSpawn(spawn.pathScript));
-                yield return new WaitForSeconds(spawnFrequency);
-            }
-        }
-        yield break;
     }
 }

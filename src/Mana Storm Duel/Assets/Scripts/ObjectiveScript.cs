@@ -36,7 +36,6 @@ public class ObjectiveScript : NetworkBehaviour {
         {
             if(!target.IsDead)
             {
-                playerScript.LifeNumber--;
                 Destroy(target.gameObject);
             }
         }
