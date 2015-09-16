@@ -17,7 +17,7 @@ public interface IProjectileMessage : IEventSystemHandler
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
+public class ProjectileBehaviour : NetworkBehaviour, IProjectileMessage
 {
 
     [SerializeField]
@@ -32,6 +32,8 @@ public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
     [SerializeField]
     float speed = 50.0f;
 
+    [SyncVar]
+    Vector3 destination;
 
 	// Use this for initialization
 	void Start ()
@@ -42,9 +44,21 @@ public class ProjectileBehaviour : MonoBehaviour, IProjectileMessage
 	// Update is called once per frame
 	void Update ()
     {
-        if(target)
+        if(isServer)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * speed);
+            if (target)
+            {
+                destination = target.transform.position;
+                transform.position = Vector3.MoveTowards(transform.position,
+                    target.transform.position,
+                    Time.deltaTime * speed);
+            }
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position,
+                    destination,
+                    Time.deltaTime * speed);
         }
 	}
 

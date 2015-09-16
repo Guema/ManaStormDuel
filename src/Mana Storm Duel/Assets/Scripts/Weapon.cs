@@ -79,9 +79,13 @@ public class Weapon : NetworkBehaviour, IWeaponMessages {
     void Attack(Unit Target)
     {
         last_attack = Time.time;
-        var temp = Instantiate(projectile);
-        temp.transform.position = transform.position + cannon;
-        ExecuteEvents.Execute<IProjectileMessage>(temp, null, (x, y) => x.SetTarget(Target, effects.ToArray()));
+        if(isServer)
+        {
+            var temp = Instantiate(projectile);
+            temp.transform.position = transform.position + cannon;
+            NetworkServer.Spawn(temp);
+            ExecuteEvents.Execute<IProjectileMessage>(temp, null, (x, y) => x.SetTarget(Target, effects.ToArray()));
+        }
     }
 
     public Unit Target()

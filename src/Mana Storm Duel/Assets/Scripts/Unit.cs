@@ -18,15 +18,17 @@ public interface IUnitMessage : IEventSystemHandler
 [SelectionBase]
 public class Unit : NetworkBehaviour, IUnitMessage
 {
-    [SyncVar] [SerializeField]
+    [SerializeField]
     new public Collider collider;
-    [SyncVar] [SerializeField]
+    [SerializeField]
     new public Rigidbody rigidbody;
 
+    [SyncVar]
     bool isDead = false;
     [SerializeField]
     int maxHealth = 100;
     [SerializeField]
+    [SyncVar]
     int _hp;
     [SerializeField]
     int maxSpeed = 100;
@@ -70,8 +72,8 @@ public class Unit : NetworkBehaviour, IUnitMessage
         
 	}
 
-    [Command]
-    public void CmdTakeDamage(int damage, Vector3 vec)
+    [ClientRpc]
+    public void RpcTakeDamage(int damage, Vector3 vec)
     {
         _hp = _hp - damage;
         if (_hp <= 0)
@@ -103,6 +105,7 @@ public class Unit : NetworkBehaviour, IUnitMessage
         return this;
     }
 
+    [ServerCallback]
     void IUnitMessage.OnSufferEffect(Effect[] effect, Vector3 vec)
     {
         for(int i = 0; i < effect.Length; i++)
@@ -110,7 +113,7 @@ public class Unit : NetworkBehaviour, IUnitMessage
             DamageEffect e;
             if (e = effect[i] as DamageEffect)
             {
-                CmdTakeDamage(e.Damage, vec);
+                RpcTakeDamage(e.Damage, vec);
             }
         }
     }

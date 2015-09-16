@@ -16,7 +16,13 @@ public class FollowPathBehaviour : NetworkBehaviour, IFollowPathMessage {
     Unit unit;
     [SerializeField]
     PathScript path;
-    Transform dest;
+
+    [SyncVar]
+    Vector3 dest;
+
+    [SyncVar]
+    Vector3 speed;
+
     [SyncVar]
     int waypointIndex = 0;
 	
@@ -30,18 +36,27 @@ public class FollowPathBehaviour : NetworkBehaviour, IFollowPathMessage {
     {
         if(isServer)
         {
-            if (dest && !unit.IsDead)
+            if (!unit.IsDead)
             {
-                if (transform.position == dest.position)
+                if (transform.position == dest)
                 {
                     if (waypointIndex < path.WayPoints.Length - 1)
                     {
                         waypointIndex++;
-                        dest = path.WayPoints[waypointIndex];
+                        dest = path.WayPoints[waypointIndex].position;
                     }
                 }
+                transform.position = speed = Vector3.MoveTowards(transform.position,
+                    dest,
+                    Time.deltaTime * 10.0f * unit.Speed / 100);
+            }
+        }
+        else
+        {
+            if (!unit.IsDead)
+            {
                 transform.position = Vector3.MoveTowards(transform.position,
-                    dest.position,
+                    dest,
                     Time.deltaTime * 10.0f * unit.Speed / 100);
             }
         }
@@ -53,7 +68,7 @@ public class FollowPathBehaviour : NetworkBehaviour, IFollowPathMessage {
         if(this.path)
         {
             waypointIndex = 0;
-            dest = path.WayPoints[0];
+            dest = path.WayPoints[0].position;
         }
     }
 }
