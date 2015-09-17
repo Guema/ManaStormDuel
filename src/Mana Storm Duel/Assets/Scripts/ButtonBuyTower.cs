@@ -9,11 +9,8 @@ public interface IGameUIMessage : IEventSystemHandler
     void OnPlayerClick(PlayerScript playerScript);
 }
 
-public abstract class TowerButton : MonoBehaviour, IGameUIMessage
+public abstract class Floating3DTigger : MonoBehaviour, IGameUIMessage
 {
-
-    [SerializeField]
-    protected TowerScript towerScript;
     [SerializeField]
     protected new Collider collider;
 
@@ -21,11 +18,13 @@ public abstract class TowerButton : MonoBehaviour, IGameUIMessage
 }
 
 
-public class ButtonBuyTower : TowerButton
+public class ButtonBuyTower : Floating3DTigger
 {
+    [SerializeField]
+    protected TowerScript towerScript;
+
     public override void OnPlayerClick(PlayerScript playerScript)
     {
-        //towerScript.CmdSetUpgradeLevel(towerScript.UpgradeLevel + 1);
         towerScript.CmdBuyTower(playerScript);
     }
 }

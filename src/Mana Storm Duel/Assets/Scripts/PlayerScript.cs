@@ -28,6 +28,19 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    public Camera Camera
+    {
+        get
+        {
+            return camera;
+        }
+
+        set
+        {
+            camera = value;
+        }
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0))
@@ -38,7 +51,7 @@ public class PlayerScript : NetworkBehaviour
 
     void CallUIMessage()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100f, UILayerMask))
         {

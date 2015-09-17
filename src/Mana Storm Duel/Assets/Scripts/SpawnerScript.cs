@@ -4,11 +4,13 @@ using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SpawnerScript : NetworkBehaviour
 {
     [SerializeField]
     PathScript pathScript;
+
     [SerializeField]
     float interval = 1.0f;
 
@@ -22,7 +24,7 @@ public class SpawnerScript : NetworkBehaviour
     }
 
     [SerializeField]
-    EnnemiesConfig[] waveOfEnnemies;
+    EnnemiesConfig[] ennemiesConfig;
 
     public PathScript PathScript
     {
@@ -42,6 +44,7 @@ public class SpawnerScript : NetworkBehaviour
     void OnEnable()
     {
         spawners.Add(this);
+        RefreshDisplays();
     }
 
     void OnDisable()
@@ -57,11 +60,11 @@ public class SpawnerScript : NetworkBehaviour
 
     IEnumerator SpawnLoop()
     {
-        for(int i = 0; i < waveOfEnnemies.Length; i++)
+        for(int i = 0; i < ennemiesConfig.Length; i++)
         {
-            for(int j = 0; j<waveOfEnnemies[i].number; j++)
+            for(int j = 0; j<ennemiesConfig[i].number; j++)
             {
-                var ennemy = (GameObject)Instantiate(waveOfEnnemies[i].prefab,
+                var ennemy = (GameObject)Instantiate(ennemiesConfig[i].prefab,
                     transform.position,
                     Quaternion.identity);
                 ExecuteEvents.Execute<IFollowPathMessage>(
@@ -73,4 +76,60 @@ public class SpawnerScript : NetworkBehaviour
             }
         }
     }
+
+
+    #region UI
+
+    [SerializeField]
+    Text[] NbOfEnnemiesText;
+    [SerializeField]
+    Canvas AttackerUI;
+
+    [Command]
+    public void CmdIncrementNb()
+    {
+        for (int i = 0; i < ennemiesConfig.Length; i++)
+        {
+            ennemiesConfig[i].number++;
+        }
+        RefreshDisplays();
+    }
+
+    [Command]
+    public void CmdDecrementNb()
+    {
+        for (int i = 0; i < ennemiesConfig.Length; i++)
+        {
+            ennemiesConfig[i].number--;
+        }
+        RefreshDisplays();
+    }
+
+    void RefreshDisplays()
+    {
+        for(int i = 0; i < ennemiesConfig.Length; i++)
+        {
+            if(NbOfEnnemiesText[i])
+            {
+                NbOfEnnemiesText[i].text = ennemiesConfig[i].number.ToString();
+            }
+        }
+    }
+
+    public void EnableUi(PlayerScript playerscript)
+    {
+        
+        if (isClient)
+        {
+            AttackerUI.gameObject.SetActive(true);
+            AttackerUI.worldCamera = playerscript.Camera;
+        }
+    }
+
+    public void DiableUi()
+    {
+        AttackerUI.gameObject.SetActive(false);
+    }
+
+    #endregion
 }

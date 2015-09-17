@@ -7,10 +7,6 @@ using System;
 
 public interface IProjectileMessage : IEventSystemHandler
 {
-    /// <summary>
-    /// Targets a GameObject with a Unit component on
-    /// </summary>
-    /// <param name="unit">Unit component of the GameObject</param>
     void SetTarget(Unit unit, Effect[] effect);
     void SetSpeed(int speed);
 }
@@ -23,9 +19,7 @@ public class ProjectileBehaviour : NetworkBehaviour, IProjectileMessage
     [SerializeField]
     new public Collider collider;
     [SerializeField]
-    new public Rigidbody rigidbody; 
-    //[SerializeField]
-    //bool isBeeingUsed = false;
+    new public Rigidbody rigidbody;
     [SerializeField]
     List<Effect> effects = new List<Effect>();
     Unit target;
@@ -34,12 +28,6 @@ public class ProjectileBehaviour : NetworkBehaviour, IProjectileMessage
 
     [SyncVar]
     Vector3 destination;
-
-	// Use this for initialization
-	void Start ()
-    {
-
-	}
 	
 	// Update is called once per frame
 	void Update ()
