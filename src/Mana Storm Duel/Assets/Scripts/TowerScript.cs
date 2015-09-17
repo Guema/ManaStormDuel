@@ -12,6 +12,8 @@ public class TowerScript : NetworkBehaviour {
     string faction = "Enter faction name here";
     [SerializeField]
     GameObject[] towersObjects;
+    [SerializeField]
+    Weapon weapon;
     [SyncVar]
     [SerializeField]
     int upgradeLevel = 0;
@@ -27,21 +29,13 @@ public class TowerScript : NetworkBehaviour {
     void OnEnable()
     {
         //CmdSetUpgradeLevel(UpgradeLevel);
+
     }
 
     [Command]
     public void CmdBuyTower(PlayerScript playerScript)
     {
         Debug.Log(playerScript);
-        if(upgradeLevel == 0)
-        {
-            if (upgradeLevel + 1 < towersObjects.Length)
-            {
-                upgradeLevel++;
-                towersObjects[upgradeLevel].SetActive(true);
-                towersObjects[0].SetActive(false);
-            }
-        }
         RpcBuyTower();
     }
 
@@ -50,12 +44,10 @@ public class TowerScript : NetworkBehaviour {
     {
         if (1 < towersObjects.Length)
         {
-
             upgradeLevel = 1;
-
+            weapon.enabled = true;
             towersObjects[upgradeLevel].SetActive(true);
             towersObjects[0].SetActive(false);
-
         }
     }
 }
